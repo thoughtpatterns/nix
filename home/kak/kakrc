@@ -1,0 +1,32 @@
+# TODO: snippets.
+# TODO: cut down on modules.
+# TODO: replace-ranges for LaTeX (e.g., \exists → ∃ when on a different line).
+# TODO: remove block capability from comment module.
+# TODO: simplify texpand.
+#       $ printf '%s' '\alpha' | { texpand || printf '%s\n' 'unknown error' ; }
+#       α
+#       $ printf '%s' '\abcdef' | { texpand || printf '%s\n' 'unknown error' >&2 ; }
+#       fatal: failed to find unicode for input macro
+#       unknown error
+
+define-command -params 1 -hidden load %{ source "%val{config}/%arg{1}" }
+
+load 'rc/lib/toggle.kak'
+
+load 'rc/core/keybinds.kak'
+load 'rc/core/options.kak'
+
+load 'rc/modules/ansi.kak'
+load 'rc/modules/clipboard.kak'
+load 'rc/modules/comment.kak'
+load 'rc/modules/fmt.kak'
+load 'rc/modules/format.kak'
+load 'rc/modules/highlight.kak'
+load 'rc/modules/lsp.kak'
+load 'rc/modules/sort.kak'
+load 'rc/modules/swatch.kak'
+
+load 'rc/filetype/detection.kak'
+load 'rc/filetype/hooks.kak'
+
+colorscheme tangere-light

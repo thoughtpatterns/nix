@@ -1,0 +1,24 @@
+#!ghostty
+
+foreground = #000000
+background = #fdfdfa
+cursor-color = #002a40
+cursor-text = #ffffff
+selection-foreground = #ffffff
+selection-background = #898e99
+palette = 0=#ffffff
+palette = 1=#9c341f
+palette = 2=#004c73
+palette = 3=#805619
+palette = 4=#223355
+palette = 5=#663d52
+palette = 6=#4b5363
+palette = 7=#898e99
+palette = 8=#686868
+palette = 9=#9c341f
+palette = 10=#004c73
+palette = 11=#40290a
+palette = 12=#223355
+palette = 13=#663d52
+palette = 14=#002a40
+palette = 15=#d1d1d1

@@ -1,0 +1,37 @@
+Host caen
+	User           makkimm
+	HostName       caen-vnc-mi01.engin.umich.edu
+	ControlMaster  auto
+	ControlPersist 28800
+
+Host envs
+	User     mackeye
+	HostName envs.net
+
+Host gl
+	User           makkimm
+	HostName       gl-login1.arc-ts.umich.edu
+	ControlMaster  auto
+	ControlPersist 28800
+
+Host p50
+	User     moe
+	HostName moe.k.vu
+
+Host sdf
+	User     mackeye
+	HostName tty.freeshell.org
+
+Host *
+	ForwardAgent        no
+	SetEnv              TERM="xterm-256color"
+	ServerAliveInterval 60
+	ServerAliveCountMax 3
+	Compression         no
+	AddKeysToAgent      yes
+	HashKnownHosts      no
+	UserKnownHostsFile  ~/.ssh/known_hosts
+	ControlMaster       no
+	ControlPath         ~/.ssh/_%r@%h:%p
+	ControlPersist      no
+	IdentityFile        ~/.ssh/id_ed25519

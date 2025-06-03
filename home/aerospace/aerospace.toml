@@ -1,0 +1,84 @@
+automatically-unhide-macos-hidden-apps = true
+
+exec-on-workspace-change = [
+    "/usr/bin/env", "dash", "-c",
+    'sketchybar --trigger aerospace_workspace_change "INFO=$AEROSPACE_FOCUSED_WORKSPACE"'
+]
+
+[gaps.inner]
+horizontal = 16
+vertical = 16
+
+[gaps.outer]
+bottom = 16
+left = 16
+right = 16
+top = 16
+
+[mode.main.binding]
+cmd-space = "mode prefix"
+
+[mode.prefix.binding]
+esc = "mode main"
+space = "mode main"
+
+a = "layout accordion tiles"
+f = "layout floating tiling"
+m = "fullscreen"
+o = "focus-monitor --wrap-around next"
+u = "macos-native-fullscreen"
+w = "workspace-back-and-forth"
+
+h = "focus left"
+j = "focus down"
+k = "focus up"
+l = "focus right"
+
+shift-h = "move left"
+shift-j = "move down"
+shift-k = "move up"
+shift-l = "move right"
+
+alt-h = "resize width -100"
+alt-j = "resize height -100"
+alt-k = "resize height +100"
+alt-l = "resize width +100"
+
+alt-shift-h = "join-with left"
+alt-shift-j = "join-with down"
+alt-shift-k = "join-with up"
+alt-shift-l = "join-with right"
+
+1 = "workspace 1"
+2 = "workspace 2"
+3 = "workspace 3"
+4 = "workspace 4"
+5 = "workspace 5"
+6 = "workspace 6"
+7 = "workspace 7"
+8 = "workspace 8"
+9 = "workspace 9"
+0 = "workspace 10"
+
+shift-1 = "move-node-to-workspace 1"
+shift-2 = "move-node-to-workspace 2"
+shift-3 = "move-node-to-workspace 3"
+shift-4 = "move-node-to-workspace 4"
+shift-5 = "move-node-to-workspace 5"
+shift-6 = "move-node-to-workspace 6"
+shift-7 = "move-node-to-workspace 7"
+shift-8 = "move-node-to-workspace 8"
+shift-9 = "move-node-to-workspace 9"
+shift-0 = "move-node-to-workspace 10"
+
+[workspace-to-monitor-force-assignment]
+1 = "main"
+2 = "main"
+3 = "main"
+4 = "main"
+5 = "main"
+6 = "secondary"
+7 = "secondary"
+8 = "secondary"
+9 = "secondary"
+10 = "secondary"

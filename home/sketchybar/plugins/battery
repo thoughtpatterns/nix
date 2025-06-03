@@ -1,0 +1,11 @@
+#!/usr/bin/env janet
+
+(use spork/sh-dsl)
+
+(def pmset ($<_ pmset -g batt))
+(def percent (first (peg/match ~(thru (* (capture (some :d)) "%")) pmset)))
+
+(when percent
+  (def percent (scan-number percent))
+  (def ac (string/find "AC Power" pmset))
+  ($ sketchybar --set $NAME (string "label=[battery] " percent "%")))

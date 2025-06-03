@@ -1,0 +1,28 @@
+#!ghostty
+
+font-family = Iosevka Nerd Font Mono
+font-feature = -calt
+font-feature = -dlig
+font-size = 12
+
+auto-update = off
+bold-is-bright = false
+command = /run/current-system/sw/bin/fish
+cursor-style-blink = false
+theme = tangere-light
+title = " "
+window-padding-x = 12
+window-padding-y = 12
+
+keybind = clear
+keybind = all:super+q=close_window
+keybind = super+c=copy_to_clipboard
+keybind = super+f=start_search
+keybind = super+l=clear_screen
+keybind = super+minus=decrease_font_size:1
+keybind = super+n=new_window
+keybind = super+plus=increase_font_size:1
+keybind = super+r=reload_config
+keybind = super+v=paste_from_clipboard
+keybind = super+w=close_window
+keybind = super+zero=reset_font_size

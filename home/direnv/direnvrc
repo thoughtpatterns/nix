@@ -1,0 +1,3 @@
+#!bash
+
+source "$NIX_DIRENV_RC"

@@ -1,0 +1,7 @@
+#!/usr/bin/env janet
+
+(use spork/sh-dsl)
+
+(if (= ((dyn *args*) 1) (os/getenv "INFO"))
+  ($ sketchybar --set $NAME "background.drawing=true")
+  ($ sketchybar --set $NAME "background.drawing=false"))

@@ -1,0 +1,143 @@
+# Dockerfile.
+
+[grammar.dockerfile.source.git]
+url = "https://github.com/camdencheek/tree-sitter-dockerfile"
+pin = "087daa20438a6cc01fa5e6fe6906d77c869d19fe"
+
+[grammar.dockerfile]
+path = "src"
+compile = "cc"
+compile_args = ["-c", "-fpic", "../scanner.c", "../parser.c", "-I", ".."]
+compile_flags = ["-O3"]
+link = "cc"
+link_args = ["-shared", "-fpic", "scanner.o", "parser.o", "-o", "dockerfile.so"]
+link_flags = ["-O3"]
+
+[language.dockerfile.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "d654a07d3d85d055b47ff9d92ab7c5faa57a7e3f"
+
+[language.dockerfile.queries]
+path = "runtime/queries/dockerfile"
+
+# Janet.
+
+# [grammar.janet.source.git]
+# url = "https://github.com/sogaiu/tree-sitter-janet-simple"
+# pin = "3c1bdcfff374138da03a1db25c75efce623910fe"
+
+# [grammar.janet]
+# compile_args = ["-c", "-fpic", "-flto=auto", "../parser.c", "../scanner.c", "-I", ".."]
+# link_args = ["-shared", "-fpic", "-flto=auto", "parser.o", "scanner.o", "-o", "janet.so"]
+
+# [language.janet.queries.source.git]
+# url = "https://github.com/helix-editor/helix"
+# pin = "4d0466d30c112f8733a2297e1472e9d793bba6ef"
+
+# [language.janet.queries]
+# path = "runtime/queries/janet"
+
+# Julia.
+
+[grammar.julia.source.git]
+url = "https://github.com/tree-sitter/tree-sitter-julia"
+pin = "3c1bdcfff374138da03a1db25c75efce623910fe"
+
+[grammar.julia]
+compile_args = ["-c", "-fpic", "-flto=auto", "../parser.c", "../scanner.c", "-I", ".."]
+link_args = ["-shared", "-fpic", "-flto=auto", "parser.o", "scanner.o", "-o", "julia.so"]
+
+[language.julia.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "a3b64b6da2ece01fab8f7590c4252d07993c5e2b"
+
+[language.julia.queries]
+path = "runtime/queries/julia"
+
+# Lua.
+
+[grammar.lua.source.git]
+url = "https://github.com/tree-sitter-grammars/tree-sitter-lua"
+pin = "d76023017f7485eae629cb60d406c7a1ca0f40c9"
+
+[grammar.lua]
+path = "src"
+compile = "cc"
+compile_args = ["-c", "-fpic", "../scanner.c", "../parser.c", "-I", ".."]
+compile_flags = ["-O3"]
+link = "cc"
+link_args = ["-shared", "-fpic", "scanner.o", "parser.o", "-o", "lua.so"]
+link_flags = ["-O3"]
+
+[language.lua.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "e17b80a5a2146df78e211a011c4cb57f1acab56d"
+
+[language.lua.queries]
+path = "runtime/queries/lua"
+
+# Objective-C.
+
+[grammar.objc.source.git]
+url = "https://github.com/tree-sitter-grammars/tree-sitter-objc"
+pin = "181a81b8f23a2d593e7ab4259981f50122909fda"
+
+[grammar.objc]
+path = "src"
+compile = "cc"
+compile_args = ["-c", "-fpic", "../parser.c", "-I", ".."]
+compile_flags = ["-O3"]
+link = "cc"
+link_args = ["-shared", "-fpic", "parser.o", "-o", "objc.so"]
+link_flags = ["-O3"]
+
+[language.objc.queries.source.git]
+url = "https://github.com/tree-sitter-grammars/tree-sitter-objc"
+pin = "181a81b8f23a2d593e7ab4259981f50122909fda"
+
+[language.objc.queries]
+path = "queries"
+
+# Typst.
+
+[grammar.typst.source.git]
+url = "https://github.com/uben0/tree-sitter-typst"
+pin = "46cf4ded12ee974a70bf8457263b67ad7ee0379d"
+
+[grammar.typst]
+path = "src"
+compile = "cc"
+compile_args = ["-c", "-fpic", "../scanner.c", "../parser.c", "-I", ".."]
+compile_flags = ["-O3"]
+link = "cc"
+link_args = ["-shared", "-fpic", "scanner.o", "parser.o", "-o", "typst.so"]
+link_flags = ["-O3"]
+
+[language.typst.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "94c96cfe0eecd0a0a00a1be3ef284d8bc8493d9d"
+
+[language.typst.queries]
+path = "runtime/queries/typst"
+
+# Wolfram.
+
+[grammar.wolfram.source.git]
+url = "https://github.com/LumaKernel/tree-sitter-wolfram"
+pin = "ab3506a5b49b7d76a8ed06958d0b2b7be91a5d34"
+
+[grammar.wolfram]
+path = "src"
+compile = "cc"
+compile_args = ["-c", "-fpic", "../scanner.c", "../parser.c", "-I", ".."]
+compile_flags = ["-O3"]
+link = "cc"
+link_args = ["-shared", "-fpic", "scanner.o", "parser.o", "-o", "wolfram.so"]
+link_flags = ["-O3"]
+
+[language.wolfram.queries.source.git]
+url = "https://github.com/LumaKernel/tree-sitter-wolfram"
+pin = "ab3506a5b49b7d76a8ed06958d0b2b7be91a5d34"
+
+[language.wolfram.queries]
+path = "queries"
