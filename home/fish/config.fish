@@ -34,10 +34,11 @@ and begin
 	abbr --command git s status
 	abbr --command git u pull
 
-	abbr --add cp    'cp -r'
-	abbr --add mkdir 'mkdir -p'
-	abbr --add pkill 'pkill -I'
-	abbr --add rm    'rm -r'
+	abbr --add cp       'cp -r'
+	abbr --add mkdir    'mkdir -p'
+	abbr --add pkill    'pkill -I'
+	abbr --add rm       'rm -r'
+	abbr --add tectonic 'tectonic -X'
 
 	keychain --eval --quiet id_ed25519 | source
 	direnv hook fish | source
