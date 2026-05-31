@@ -124,6 +124,7 @@ in
         gnumake
         gnupg
         janet
+        janetPackages.spork
         kak-tree-sitter
         kakoune
         kakoune-lsp
@@ -145,7 +146,6 @@ in
         rust-bin.stable.latest.default
         sketchybar
         skimpdf
-        spork
         stylua
         syncthing
         tectonic
@@ -165,7 +165,7 @@ in
       PAGER = "e";
       VISUAL = "e";
 
-      JANET_PATH = "${pkgs.spork}";
+      JANET_PATH = "${pkgs.janetPackages.spork}";
       JULIA_DEPOT_PATH = "${home}/.julia";
       KAKOUNE_POSIX_SHELL = "${pkgs.dash}/bin/dash";
       MAKEFLAGS = "-j12";
@@ -228,7 +228,7 @@ in
           name = "sketchybar";
           command = "${pkgs.sketchybar}/bin/sketchybar";
           extra.EnvironmentVariables = {
-            JANET_PATH = "${pkgs.spork}";
+            JANET_PATH = "${pkgs.janetPackages.spork}";
             PATH = "${pkgs.aerospace}/bin:${pkgs.janet}/bin:${pkgs.sketchybar}/bin:/bin:/usr/bin";
           };
         };
