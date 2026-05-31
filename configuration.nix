@@ -72,7 +72,7 @@ let
     };
   };
 
-  linkScript =
+  links =
     let
       source = "${home}/.config/nix/home";
       targets =
@@ -270,7 +270,7 @@ in
 
   system = {
     activationScripts.postActivation.text = ''
-      ${linkScript}
+      ${links}
 
       # Avoid a restart for user preference changes.
       sudo -u '${user}' /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
