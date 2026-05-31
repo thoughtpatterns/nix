@@ -74,7 +74,8 @@ let
 
   linkScript =
     let
-      targetMap =
+      source = "${home}/.config/nix/home";
+      targets =
         name:
         {
           kak-tree-sitter = "Library/Application Support/kak-tree-sitter";
@@ -86,8 +87,7 @@ let
       map (
         name:
         let
-          source = "${home}/.config/nix/home";
-          target = targetMap name;
+          target = targets name;
         in
         lib.concatStrings (
           lib.mapAttrsToList (entry: _: ''
