@@ -21,6 +21,11 @@
 
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,6 +40,7 @@
       homebrew-cask,
       homebrew-core,
       nix-homebrew,
+      nix-index-database,
       rust-overlay,
     }:
     let
@@ -57,7 +63,14 @@
     {
       darwinConfigurations.${host} = nix-darwin.lib.darwinSystem {
         inherit system;
-        specialArgs = { inherit inputs pkgs host user; };
+        specialArgs = {
+          inherit
+            inputs
+            pkgs
+            host
+            user
+            ;
+        };
 
         modules = [
           { nixpkgs = { inherit overlays; }; }
@@ -72,6 +85,9 @@
               taps."homebrew/homebrew-cask" = homebrew-cask;
             };
           }
+
+          nix-index-database.darwinModules.nix-index
+          { programs.nix-index-database.comma.enable = true; }
 
           ./configuration.nix
         ];
