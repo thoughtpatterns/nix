@@ -8,7 +8,6 @@
 
 let
   home = "/Users/${user}";
-  source = "${home}/.config/nix/home";
 
   dashScript =
     {
@@ -87,6 +86,7 @@ let
       map (
         name:
         let
+          source = "${home}/.config/nix/home";
           target = targetMap name;
         in
         lib.concatStrings (
