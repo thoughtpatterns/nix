@@ -42,7 +42,7 @@ let
         python = pkgs.python314;
       in
       pythonScript {
-        name = "pc";
+        name = "c";
         inherit python;
         libs = with python.pkgs; [
           ipython
