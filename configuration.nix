@@ -224,11 +224,6 @@ in
           extra.EnvironmentVariables.PATH = "${pkgs.dash}/bin:${pkgs.sketchybar}/bin:/bin:/usr/bin";
         };
 
-        scmfmt = service {
-          name = "scmfmt";
-          command = "${pkgs.emacs}/bin/emacs --fg-daemon=scmfmt --no-init-file --no-site-file";
-        };
-
         sketchybar = service {
           name = "sketchybar";
           command = "${pkgs.sketchybar}/bin/sketchybar";

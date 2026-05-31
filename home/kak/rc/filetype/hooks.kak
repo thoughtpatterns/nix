@@ -147,7 +147,6 @@ provide-module typst %{
 hook global BufSetOption '(filetype|tree_sitter_lang)=(kakrc|ksh|sh|zsh)' %{ set-option buffer tree_sitter_lang bash   }
 hook global BufSetOption '(filetype|tree_sitter_lang)=ghostty'            %{ set-option buffer tree_sitter_lang ini }
 hook global BufSetOption '(filetype|tree_sitter_lang)=bazel'              %{ set-option buffer tree_sitter_lang python }
-hook global BufSetOption '(filetype|tree_sitter_lang)=kanata'             %{ set-option buffer tree_sitter_lang scheme }
 
 # LSP filetype hooks.
 
@@ -165,7 +164,6 @@ hook global BufSetOption 'filetype=asciidoc'                                    
 hook global BufSetOption 'filetype=css'                                                   %{ set-option buffer comment_line ''   ; set-option buffer comment_block_begin '/*'        ; set-option buffer comment_block_end '*/'    }
 hook global BufSetOption 'filetype=ini'                                                   %{ set-option buffer comment_line ';'                                                                                                    }
 hook global BufSetOption 'filetype=julia'                                                 %{                                       set-option buffer comment_block_begin '#='        ; set-option buffer comment_block_end '=#'    }
-hook global BufSetOption 'filetype=kanata'                                                %{ set-option buffer comment_line ';;' ; set-option buffer comment_block_begin '#|'        ; set-option buffer comment_block_end '|#'    }
 hook global BufSetOption 'filetype=latex'                                                 %{ set-option buffer comment_line '%'                                                                                                    }
 hook global BufSetOption 'filetype=lua'                                                   %{ set-option buffer comment_line '--' ; set-option buffer comment_block_begin '--[['      ; set-option buffer comment_block_end ']]'    }
 hook global BufSetOption 'filetype=markdown'                                              %{ set-option buffer comment_line ''   ; set-option buffer comment_block_begin '[//]: # "' ; set-option buffer comment_block_end '"'     }
@@ -180,7 +178,7 @@ hook global BufSetOption 'filetype=(css|dockerfile|html|janet|markdown|nix|schem
 
 hook global BufSetOption 'filetype=(bazel|javascript|latex|lua|nu|python|toml|typescript)' %{ set-option buffer indentwidth 4 }
 
-hook global BufSetOption 'filetype=(html|janet|kanata|latex|lua|scheme)' %{
+hook global BufSetOption 'filetype=(html|janet|latex|lua|scheme)' %{
 	map -docstring 'format buffer'     buffer filetype f ': format-buffer<ret>'
 	map -docstring 'format selections' buffer filetype = ': format-selections<ret>'
 }
@@ -215,13 +213,6 @@ hook global BufSetOption 'filetype=janet' %{
 	set-option buffer format_command 'janet-format'
 }
 
-hook global BufSetOption 'filetype=kanata' %{
-	# We use tabs to tabulate keyboard layouts. As all keys have an alias of length <= 4, we can use tabs of
-	# width 5 to form tables, rather than continually realign via spaces.
-	set-option buffer tabstop 5
-	set-option buffer format_command 'scmfmt 0'
-}
-
 hook global BufSetOption 'filetype=latex' %{ set-option buffer format_command 'tex-fmt --stdin --tabsize 4 --wraplen 120' }
 
 hook global BufSetOption 'filetype=lc2k' %{
@@ -233,8 +224,6 @@ hook global BufSetOption 'filetype=lc2k' %{
 hook global BufSetOption 'filetype=lua' %{ set-option buffer format_command 'stylua --search-parent-directories -' }
 
 hook global BufSetOption 'filetype=python' %{ set-width 120 }
-
-hook global BufSetOption 'filetype=scheme' %{ set-option buffer format_command 'scmfmt' }
 
 hook global BufSetOption 'filetype=todotxt' %{
 	require-module todotxt

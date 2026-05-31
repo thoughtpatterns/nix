@@ -63,7 +63,6 @@ define-command -hidden filetype-set %{ try %{ "filetype-empty%opt{filetype}" # H
 			catch %{ filetype-map jsx         '\.jsx$'                                      } \
 			catch %{ filetype-map julia       '\.jl$'                                       } \
 			catch %{ filetype-map kakrc       '(\.kak|\.?kakrc)$'                           } \
-			catch %{ filetype-map kanata      '\.kbd$'                                      } \
 			catch %{ filetype-map koka        '\.kk$'                                       } \
 			catch %{ filetype-map kotlin      '\.k(lib|ts?)$'                               } \
 			catch %{ filetype-map ksh         '\.[mo]?ksh(_profile|env|rc)?$'               } \
