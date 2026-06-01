@@ -136,6 +136,7 @@ in
         llvm
         luajit
         mawk
+        mitscheme-svm
         mpv
         nil
         nix-direnv
