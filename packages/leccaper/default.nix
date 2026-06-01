@@ -1,11 +1,11 @@
 {
-  pkgs,
   lib,
   fetchFromSourcehut,
+  python314,
 }:
 
 let
-  python = pkgs.python314;
+  python = python314;
 in
 python.pkgs.buildPythonApplication rec {
   pname = "leccaper";

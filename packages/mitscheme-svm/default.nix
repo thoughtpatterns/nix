@@ -7,19 +7,19 @@
   rlwrap,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation rec {
   pname = "mitscheme-svm";
   version = "12.1";
 
   src = fetchurl {
-    url = "https://ftp.gnu.org/gnu/mit-scheme/stable.pkg/${finalAttrs.version}/mit-scheme-${finalAttrs.version}-svm1-64le.tar.gz";
+    url = "https://ftp.gnu.org/gnu/mit-scheme/stable.pkg/${version}/mit-scheme-${version}-svm1-64le.tar.gz";
     hash = "sha256-LFtb8fRMfCRY2nnAlD4IKuN/F1LH2dHOCmH3r8vwQwQ=";
   };
 
   buildInputs = [ ncurses ];
   enableParallelBuilding = true;
   nativeBuildInputs = [ makeWrapper ];
-  sourceRoot = "mit-scheme-${finalAttrs.version}/src";
+  sourceRoot = "mit-scheme-${version}/src";
 
   # Disable the 'edwin', 'imail', and 'x11(-screen)?' plugins, which are enabled by default.
   configureFlags = [
@@ -41,9 +41,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     description = "MIT/GNU Scheme, a portable Scheme VM binary";
-    homepage = "https://www.gnu.org/software/mit-scheme/";
+    homepage = "https://www.gnu.org/software/mit-scheme";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [ mackeye ];
   };
-})
+}
