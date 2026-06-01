@@ -1,8 +1,8 @@
 {
-  pkgs,
   lib,
   stdenv,
   fetchFromGitHub,
+  janet,
 }:
 
 stdenv.mkDerivation rec {
@@ -16,13 +16,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-aAM9USwh3ZifupHVPqu/aFyaLrTGlYnzV/88RDkpLjE=";
   };
 
-  nativeBuildInputs = with pkgs; [ janet ];
-
   dontBuild = true;
+  nativeBuildInputs = [ janet ];
 
   installPhase = ''
     mkdir -p "$out"
-    JANET_PREFIX='${pkgs.janet}' JANET_PATH="$out" janet --install .
+    JANET_PREFIX='${janet}' JANET_PATH="$out" janet --install .
     mkdir -p "$out/share"
     mv "$out/man" "$out/share/man"
   '';

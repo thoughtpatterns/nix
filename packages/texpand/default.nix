@@ -1,8 +1,8 @@
 {
-  pkgs,
   lib,
   stdenv,
   fetchFromSourcehut,
+  gperf,
 }:
 
 stdenv.mkDerivation rec {
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     vc = "git";
   };
 
-  nativeBuildInputs = with pkgs; [ gperf ];
+  nativeBuildInputs = [ gperf ];
   makeFlags = [
     "PREFIX=${placeholder "out"}"
     "-C"
