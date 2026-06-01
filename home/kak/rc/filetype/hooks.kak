@@ -178,7 +178,7 @@ hook global BufSetOption 'filetype=(css|dockerfile|html|janet|markdown|nix|schem
 
 hook global BufSetOption 'filetype=(bazel|javascript|latex|lua|nu|python|toml|typescript)' %{ set-option buffer indentwidth 4 }
 
-hook global BufSetOption 'filetype=(html|janet|latex|lua|scheme)' %{
+hook global BufSetOption 'filetype=(html|janet|latex|lua)' %{
 	map -docstring 'format buffer'     buffer filetype f ': format-buffer<ret>'
 	map -docstring 'format selections' buffer filetype = ': format-selections<ret>'
 }
@@ -213,7 +213,7 @@ hook global BufSetOption 'filetype=janet' %{
 	set-option buffer format_command 'janet-format'
 }
 
-hook global BufSetOption 'filetype=latex' %{ set-option buffer format_command 'tex-fmt --stdin --tabsize 4 --wraplen 120' }
+hook global BufSetOption 'filetype=latex' %{ set-option buffer format_command 'tex-fmt --stdin --tabsize 4 --wraplen 180' }
 
 hook global BufSetOption 'filetype=lc2k' %{
 	require-module lc2k
