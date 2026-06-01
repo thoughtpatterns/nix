@@ -32,5 +32,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/janet-lang/spork";
     license = licenses.mit;
     platforms = platforms.all;
+    maintainers = with maintainers; [ mackeye ];
   };
 }
