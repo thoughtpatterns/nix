@@ -153,8 +153,6 @@ in
         tex-fmt
         texpand
         tinymist
-        tokei
-        tree
         typst
         uv
         zotero
