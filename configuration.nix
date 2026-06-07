@@ -114,7 +114,6 @@ in
         coreutils
         dash
         direnv
-        docker
         ffmpeg
         flirt
         gh
