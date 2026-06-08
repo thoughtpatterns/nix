@@ -36,6 +36,7 @@ and begin
 
 	abbr --add cp       'cp -r'
 	abbr --add mkdir    'mkdir -p'
+	abbr --add ncdu     'ncdu -t12'
 	abbr --add pkill    'pkill -I'
 	abbr --add rm       'rm -rf'
 	abbr --add tectonic 'tectonic -X'

@@ -137,6 +137,7 @@ in
         mawk
         mitscheme-svm
         mpv
+        ncdu
         nil
         nix-direnv
         nixfmt
