@@ -150,7 +150,7 @@ hook global BufSetOption '(filetype|tree_sitter_lang)=bazel'              %{ set
 
 # LSP filetype hooks.
 
-hook global WinSetOption 'filetype=(c|cpp|javascript|julia|lua|nix|objc|python|rust|typescript|typst)' %{
+hook global WinSetOption 'filetype=(c|cpp|javascript|julia|lua|nix|objc|odin|python|rust|typescript|typst)' %{
 	lsp-enable-window
 	hook -once -always window WinSetOption 'filetype=.*' %{ try lsp-disable-window }
 }

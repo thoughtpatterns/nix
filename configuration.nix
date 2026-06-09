@@ -103,6 +103,7 @@ in
   environment = {
     pathsToLink = [ "/Applications" ];
 
+    # TODO: move compilers and LSPs to project flakes.
     systemPackages =
       with pkgs;
       [
@@ -141,6 +142,8 @@ in
         nil
         nix-direnv
         nixfmt
+        odin
+        ols
         openssh
         ruff
         rust-analyzer

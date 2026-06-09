@@ -76,6 +76,7 @@ define-command -hidden filetype-set %{ try %{ "filetype-empty%opt{filetype}" # H
 			catch %{ filetype-map nix         '\.nix$'                                      } \
 			catch %{ filetype-map nu          '\.nu$'                                       } \
 			catch %{ filetype-map objc        '\.m$'                                        } \
+			catch %{ filetype-map odin        '\.odin$'                                     } \
 			catch %{ filetype-map purescript  '\.purs$'                                     } \
 			catch %{ filetype-map python      '\.pyi?$'                                     } \
 			catch %{ filetype-map ruby        '\.r[bu]$'                                    } \
