@@ -157,24 +157,24 @@ hook global WinSetOption 'filetype=(c|cpp|javascript|julia|lua|nix|objc|odin|pyt
 
 # Comment filetype hooks.
 
-hook global BufSetOption 'filetype=(c|cpp|go|java|javascript|rust|scss|typescript|typst)' %{ set-option buffer comment_line '//' ; set-option buffer comment_block_begin '/*'        ; set-option buffer comment_block_end '*/'    }
-hook global BufSetOption 'filetype=(haskell|purescript)'                                  %{ set-option buffer comment_line '--' ; set-option buffer comment_block_begin '{-'        ; set-option buffer comment_block_end '-}'    }
-hook global BufSetOption 'filetype=(html|xml)'                                            %{ set-option buffer comment_line ''   ; set-option buffer comment_block_begin '<!--'      ; set-option buffer comment_block_end '-->'   }
-hook global BufSetOption 'filetype=asciidoc'                                              %{ set-option buffer comment_line '//' ; set-option buffer comment_block_begin '////'      ; set-option buffer comment_block_end '////'  }
-hook global BufSetOption 'filetype=css'                                                   %{ set-option buffer comment_line ''   ; set-option buffer comment_block_begin '/*'        ; set-option buffer comment_block_end '*/'    }
-hook global BufSetOption 'filetype=ini'                                                   %{ set-option buffer comment_line ';'                                                                                                    }
-hook global BufSetOption 'filetype=julia'                                                 %{                                       set-option buffer comment_block_begin '#='        ; set-option buffer comment_block_end '=#'    }
-hook global BufSetOption 'filetype=latex'                                                 %{ set-option buffer comment_line '%'                                                                                                    }
-hook global BufSetOption 'filetype=lua'                                                   %{ set-option buffer comment_line '--' ; set-option buffer comment_block_begin '--[['      ; set-option buffer comment_block_end ']]'    }
-hook global BufSetOption 'filetype=markdown'                                              %{ set-option buffer comment_line ''   ; set-option buffer comment_block_begin '[//]: # "' ; set-option buffer comment_block_end '"'     }
-hook global BufSetOption 'filetype=python'                                                %{                                       set-option buffer comment_block_begin "'''"       ; set-option buffer comment_block_end "'''"   }
-hook global BufSetOption 'filetype=ruby'                                                  %{                                       set-option buffer comment_block_begin '^begin='   ; set-option buffer comment_block_end '^=end' }
-hook global BufSetOption 'filetype=scheme'                                                %{ set-option buffer comment_line ';'  ; set-option buffer comment_block_begin '#|'        ; set-option buffer comment_block_end '|#'    }
-hook global BufSetOption 'filetype=zig'                                                   %{ set-option buffer comment_line '//'                                                                                                   }
+hook global BufSetOption 'filetype=(c|cpp|go|java|javascript|odin|rust|scss|typescript|typst)' %{ set-option buffer comment_line '//' ; set-option buffer comment_block_begin '/*'        ; set-option buffer comment_block_end '*/'    }
+hook global BufSetOption 'filetype=(haskell|purescript)'                                       %{ set-option buffer comment_line '--' ; set-option buffer comment_block_begin '{-'        ; set-option buffer comment_block_end '-}'    }
+hook global BufSetOption 'filetype=(html|xml)'                                                 %{ set-option buffer comment_line ''   ; set-option buffer comment_block_begin '<!--'      ; set-option buffer comment_block_end '-->'   }
+hook global BufSetOption 'filetype=asciidoc'                                                   %{ set-option buffer comment_line '//' ; set-option buffer comment_block_begin '////'      ; set-option buffer comment_block_end '////'  }
+hook global BufSetOption 'filetype=css'                                                        %{ set-option buffer comment_line ''   ; set-option buffer comment_block_begin '/*'        ; set-option buffer comment_block_end '*/'    }
+hook global BufSetOption 'filetype=ini'                                                        %{ set-option buffer comment_line ';'                                                                                                    }
+hook global BufSetOption 'filetype=julia'                                                      %{                                       set-option buffer comment_block_begin '#='        ; set-option buffer comment_block_end '=#'    }
+hook global BufSetOption 'filetype=latex'                                                      %{ set-option buffer comment_line '%'                                                                                                    }
+hook global BufSetOption 'filetype=lua'                                                        %{ set-option buffer comment_line '--' ; set-option buffer comment_block_begin '--[['      ; set-option buffer comment_block_end ']]'    }
+hook global BufSetOption 'filetype=markdown'                                                   %{ set-option buffer comment_line ''   ; set-option buffer comment_block_begin '[//]: # "' ; set-option buffer comment_block_end '"'     }
+hook global BufSetOption 'filetype=python'                                                     %{                                       set-option buffer comment_block_begin "'''"       ; set-option buffer comment_block_end "'''"   }
+hook global BufSetOption 'filetype=ruby'                                                       %{                                       set-option buffer comment_block_begin '^begin='   ; set-option buffer comment_block_end '^=end' }
+hook global BufSetOption 'filetype=scheme'                                                     %{ set-option buffer comment_line ';'  ; set-option buffer comment_block_begin '#|'        ; set-option buffer comment_block_end '|#'    }
+hook global BufSetOption 'filetype=zig'                                                        %{ set-option buffer comment_line '//'                                                                                                   }
 
 # Broad filetype hooks.
 
-hook global BufSetOption 'filetype=(css|dockerfile|html|janet|markdown|nix|scheme|typst|xml|yaml)' %{ set-option buffer indentwidth 2 }
+hook global BufSetOption 'filetype=(css|dockerfile|html|janet|json|markdown|nix|scheme|typst|xml|yaml)' %{ set-option buffer indentwidth 2 }
 
 hook global BufSetOption 'filetype=(bazel|javascript|latex|lua|nu|python|toml|typescript)' %{ set-option buffer indentwidth 4 }
 
