@@ -125,6 +125,7 @@ in
         gnupg
         janet
         janetPackages.spork
+        just
         kak-tree-sitter
         kakoune
         kakoune-lsp
