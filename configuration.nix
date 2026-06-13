@@ -159,6 +159,8 @@ in
         tinymist
         typst
         uv
+        vidir
+        vipe
         zotero
       ]
       ++ builtins.attrValues scripts;
