@@ -1,5 +1,6 @@
 # TODO: snippets.
 # TODO: cut down on modules.
+# TODO: rewrite repl-buffer.kak.
 # TODO: replace-ranges for LaTeX (e.g., \exists → ∃ when on a different line).
 # TODO: remove block capability from comment module.
 # TODO: simplify texpand.
@@ -25,6 +26,7 @@ load 'rc/modules/highlight.kak'
 load 'rc/modules/lsp.kak'
 load 'rc/modules/sort.kak'
 load 'rc/modules/swatch.kak'
+load 'rc/modules/repl-buffer.kak'
 
 load 'rc/filetype/detection.kak'
 load 'rc/filetype/hooks.kak'

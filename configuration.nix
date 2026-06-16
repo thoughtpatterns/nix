@@ -72,6 +72,84 @@ let
         kak -C "$(pwd | sha1sum | cut -c1-8)" "$@"
       '';
     };
+
+    # NOTE: temporary, until we rewrite repl-buffer.kak.
+    repl-buffer-input =
+      let
+        python = pkgs.python314;
+      in
+      pythonScript
+      {
+        name = "repl-buffer-input";
+        inherit python;
+        text = ''
+          #!python
+          """
+          repl-buffer-input: Combine independent messages written to a FIFO.
+
+          In the normal UNIX model,
+          a FIFO waits for at least one reader and one writer,
+          and then when the last writer closes their end,
+          all the readers receive EOF and are expected to shut down.
+          That works beautifully for a one-shot pipeline,
+          but for a REPL we want multiple different submissions
+          to all be sent to the same process.
+
+          This tool takes a path to a FIFO,
+          and repeatedly reads from it,
+          copying the data straight to its stdout,
+          which becomes the concatenation of all the separate inputs.
+          If the input FIFO is deleted,
+          this tool (eventually) notices and exits,
+          closing its output
+          and signalling downstream processes to shut down cleanly.
+          """
+          import signal
+          import sys
+
+          TIMEOUT = 5
+
+          # Ask the kernel to interrupt us regularly
+          signal.setitimer(signal.ITIMER_REAL, TIMEOUT, TIMEOUT)
+
+          # After the kernel interrupts us, automatically resume what we were doing.
+          # This means interruptions are normally a no-op, BUT if the interrupted
+          # operation was "connect to a FIFO" and the FIFO has been removed, the resumed
+          # attempt will immediately fail.
+          signal.siginterrupt(signal.SIGALRM, False)
+
+          # Make sure the kernel does actually send us interrupts
+          signal.signal(signal.SIGALRM, lambda _signum, _stack: None)
+
+          # Allocate a fixed-size buffer for all our I/O operations
+          BUFFER = bytearray(4096)
+
+
+          while True:
+              try:
+                  # Open the FIFO and wait for a writer to show up.
+                  with open(sys.argv[1], "rb", buffering=0) as handle:
+                      while True:
+                          # Block until the writer writes something.
+                          count = handle.readinto(BUFFER)
+                          if count > 0:
+                              # Got some bytes, pass them along.
+                              valid_data = memoryview(BUFFER)[:count]
+                              sys.stdout.buffer.write(valid_data)
+                              sys.stdout.buffer.flush()
+                          else:
+                              # The writer has gone away,
+                              # and now the FIFO will always return EOF immediately,
+                              # so we need to re-open it to block until
+                              # the next writer shows up.
+                              break
+              except FileNotFoundError:
+                  # Our input FIFO has been removed, we expect no more incoming
+                  # connections, let's gracefully exit.
+                  break
+
+        '';
+      };
   };
 
   links =

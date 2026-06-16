@@ -103,6 +103,11 @@ map -docstring 'hover'        global lsp-toggle h ': toggle-lsp-auto-hover globa
 map -docstring 'hover buffer' global lsp-toggle H ': toggle-lsp-auto-hover-buffer global<ret>'
 map -docstring 'hints'        global lsp-toggle i ': toggle-lsp-inlay-hints global<ret>'
 
+declare-user-mode repl
+
+map -docstring 'new'   global repl n ': repl-buffer-new '
+map -docstring 'send'  global repl s ': repl-buffer-send-text<ret>'
+
 declare-user-mode filetype
 
 map -docstring 'client'            global user c     ': enter-user-mode client<ret>'
@@ -117,6 +122,7 @@ map -docstring 'sort'              global user o     ': sort-selections<ret>'
 map -docstring 'sort...'           global user O     ': sort-selections '
 map -docstring 'character sort'    global user <a-o> ': sort-characters<ret>'
 map -docstring 'character sort...' global user <a-O> ': sort-characters '
+map -docstring 'repl'              global user r     ': enter-user-mode repl<ret>'
 map -docstring 'tree-sitter'       global user t     ': enter-user-mode tree-sitter<ret>'
 map -docstring 'yank [1]'          global user y     ': yank-to-clipboard selection<ret>'
 map -docstring 'yank [@]'          global user Y     ': yank-to-clipboard selections<ret>'
