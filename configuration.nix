@@ -49,6 +49,7 @@ let
           numpy
         ];
         text = ''
+          #!python
           from numpy import *
           from sys import stdin
 
@@ -67,6 +68,7 @@ let
         kakoune
       ];
       text = ''
+        #!bash
         kak -C "$(pwd | sha1sum | cut -c1-8)" "$@"
       '';
     };
