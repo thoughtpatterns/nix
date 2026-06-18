@@ -78,8 +78,7 @@ let
       let
         python = pkgs.python314;
       in
-      pythonScript
-      {
+      pythonScript {
         name = "repl-buffer-input";
         inherit python;
         text = ''
