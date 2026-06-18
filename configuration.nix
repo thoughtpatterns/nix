@@ -260,9 +260,6 @@ in
 
   fonts.packages = with pkgs; [
     nerd-fonts.iosevka
-    tex-gyre-math.pagella
-    tex-gyre.cursor
-    tex-gyre.pagella
   ];
 
   homebrew = {
