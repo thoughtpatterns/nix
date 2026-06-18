@@ -1,5 +1,6 @@
 add-highlighter global/columns     group
 add-highlighter global/columns/80  column -ruler ║ 80  BufferPadding
+add-highlighter global/columns/100 column -ruler ║ 100 BufferPadding
 add-highlighter global/columns/120 column -ruler ║ 120 BufferPadding
 
 add-highlighter global/show-whitespaces show-whitespaces -tab ' ' -spc ' ' -lf ' ' -indent ' '
