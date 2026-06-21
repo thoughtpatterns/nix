@@ -214,7 +214,6 @@ in
         libiconv
         llvm
         luajit
-        mawk
         mitscheme-svm
         mpv
         ncdu

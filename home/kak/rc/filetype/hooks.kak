@@ -53,7 +53,7 @@ provide-module css %{
 			set-register f %reg{percent}
 
 			set-register | %{
-				mawk -v 'RS=;' '{
+				awk -v 'RS=;' '{
 					if (/:/ && !/!important/ && !/!unimportant/ && !/@[ \t]*(charset|import|namespace)/) {
 						sub(/[[:space:]]*$/, "")
 						$0 = $0 " !important"
