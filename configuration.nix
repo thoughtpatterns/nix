@@ -187,6 +187,7 @@ in
       with pkgs;
       [
         aerospace
+        android-tools
         basedpyright
         clang
         clang-tools
@@ -267,6 +268,7 @@ in
     casks = [
       "adobe-creative-cloud"
       "anki"
+      "antigravity-cli"
       "beeper"
       "helium-browser"
       "microsoft-office"
