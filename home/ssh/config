@@ -14,6 +14,24 @@ Host gl
 	ControlMaster  auto
 	ControlPersist 28800
 
+Host gl2
+	User           makkimm
+	HostName       gl-login2.arc-ts.umich.edu
+	ControlMaster  auto
+	ControlPersist 28800
+
+Host gl3
+	User           makkimm
+	HostName       gl-login3.arc-ts.umich.edu
+	ControlMaster  auto
+	ControlPersist 28800
+
+Host gl4
+	User           makkimm
+	HostName       gl-login4.arc-ts.umich.edu
+	ControlMaster  auto
+	ControlPersist 28800
+
 Host p50
 	User     moe
 	HostName moe.k.vu
