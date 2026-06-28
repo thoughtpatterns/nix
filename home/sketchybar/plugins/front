@@ -1,6 +1,0 @@
-#!/usr/bin/env janet
-
-(use spork/sh-dsl)
-
-(when (= (os/getenv "SENDER") "front_app_switched")
-  ($ sketchybar --set $NAME (string "label=" (os/getenv "INFO"))))

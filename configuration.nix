@@ -227,7 +227,6 @@ in
         ruff
         rust-analyzer
         rust-bin.stable.latest.default
-        sketchybar
         skimpdf
         stylua
         syncthing
@@ -251,7 +250,7 @@ in
       JANET_PATH = "${pkgs.janetPackages.spork}";
       JULIA_DEPOT_PATH = "${home}/.julia";
       KAKOUNE_POSIX_SHELL = "${pkgs.dash}/bin/dash";
-      MAKEFLAGS = "-j12";
+      MAKEFLAGS = "-j8";
       MallocNanoZone = "0";
       NIX_DIRENV_RC = "${pkgs.nix-direnv}/share/nix-direnv/direnvrc";
       RUSTFLAGS = "-L${pkgs.libiconv}/lib";
@@ -269,7 +268,6 @@ in
       "adobe-creative-cloud"
       "anki"
       "antigravity-cli"
-      "beeper"
       "helium-browser"
       "microsoft-office"
       "nordvpn"
@@ -302,16 +300,7 @@ in
         aerospace = service {
           name = "aerospace";
           command = "${pkgs.aerospace}/Applications/AeroSpace.app/Contents/MacOS/AeroSpace";
-          extra.EnvironmentVariables.PATH = "${pkgs.dash}/bin:${pkgs.sketchybar}/bin:/bin:/usr/bin";
-        };
-
-        sketchybar = service {
-          name = "sketchybar";
-          command = "${pkgs.sketchybar}/bin/sketchybar";
-          extra.EnvironmentVariables = {
-            JANET_PATH = "${pkgs.janetPackages.spork}";
-            PATH = "${pkgs.aerospace}/bin:${pkgs.janet}/bin:${pkgs.sketchybar}/bin:/bin:/usr/bin";
-          };
+          extra.EnvironmentVariables.PATH = "${pkgs.dash}/bin:/bin:/usr/bin";
         };
       };
     };
@@ -350,25 +339,7 @@ in
   programs.fish.enable = true;
 
   system = {
-    activationScripts.postActivation.text = ''
-      ${links}
-
-      # Avoid a restart for user preference changes.
-      sudo -u '${user}' /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-    '';
-
-    defaults.CustomUserPreferences = {
-      "com.apple.symbolichotkeys" = {
-        AppleSymbolicHotKeys =
-          lib.genAttrs (map toString (lib.range 0 300)) (_: {
-            enabled = false;
-          })
-          // {
-            "187".enabled = true; # Spotlight ←  F4.
-          };
-      };
-    };
-
+    activationScripts.postActivation.text = links;
     nixpkgsRelease = "unstable";
     primaryUser = user;
     startup.chime = false;

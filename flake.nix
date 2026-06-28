@@ -44,7 +44,7 @@
       rust-overlay,
     }:
     let
-      host = "mbp";
+      host = "imac";
       system = "aarch64-darwin";
       user = "moe";
 

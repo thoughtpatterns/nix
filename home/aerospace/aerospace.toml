@@ -1,10 +1,5 @@
 automatically-unhide-macos-hidden-apps = true
 
-exec-on-workspace-change = [
-    "/usr/bin/env", "dash", "-c",
-    'sketchybar --trigger aerospace_workspace_change "INFO=$AEROSPACE_FOCUSED_WORKSPACE"'
-]
-
 [gaps.inner]
 horizontal = 16
 vertical = 16
@@ -13,7 +8,7 @@ vertical = 16
 bottom = 16
 left = 16
 right = 16
-top = 16
+top = 4
 
 [mode.main.binding]
 cmd-space = "mode prefix"

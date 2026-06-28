@@ -1,5 +1,0 @@
-#!/usr/bin/env janet
-
-(use spork/sh-dsl)
-
-($ sketchybar --set $NAME (string "label=" (os/strftime "%a %b %d %H:%M:%S %Y" nil true)))

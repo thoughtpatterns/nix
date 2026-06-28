@@ -1,7 +1,0 @@
-#!/usr/bin/env janet
-
-(use spork/sh-dsl)
-
-(when (= (os/getenv "SENDER") "volume_change")
-  (def volume (scan-number (os/getenv "INFO")))
-  ($ sketchybar --set $NAME (string "label=[volume] " volume "%")))
