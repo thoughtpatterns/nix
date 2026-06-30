@@ -10,6 +10,7 @@ and begin
 	set -l flake "$HOME/.config/nix"
 	set -g fish_greeting
 
+	set -gx LS_COLORS "$LS_COLORS:ow=0:tw=0"
 	set -gx MANPATH '' "$__fish_data_dir/man" # See '/etc/man.conf'.
 	set -gx TTY (tty)
 
