@@ -268,6 +268,7 @@ in
       "adobe-creative-cloud"
       "anki"
       "antigravity-cli"
+      "balenaetcher"
       "helium-browser"
       "microsoft-office"
       "nordvpn"
