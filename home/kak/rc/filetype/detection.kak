@@ -70,7 +70,6 @@ define-command -hidden filetype-set %{ try %{ "filetype-empty%opt{filetype}" # H
 			catch %{ filetype-map latex       '\.tex$'                                      } \
 			catch %{ filetype-map lc2k        '\.(lc2k|nohaz)$'                             } \
 			catch %{ filetype-map llvm        '\.llvm$'                                     } \
-			catch %{ filetype-map lxt         '\.lxt$'                                      } \
 			catch %{ filetype-map lua         '\.lua$'                                      } \
 			catch %{ filetype-map make        '\.mk$|\b[mM]akefile$'                        } \
 			catch %{ filetype-map markdown    '\.md$'                                       } \
