@@ -107,6 +107,15 @@ provide-module lc2k %{
 	add-highlighter shared/lc2k/ regex '^(?<l0>\w*)\h+(?<b>.fill)\h+(?:(?<v0>-?\d+)|(?<l1>\w+))\h*(?<c>.*?)$'                                   l0:variable b:builtin v0:value l1:variable c:comment
 }
 
+provide-module lxt %{
+	add-highlighter shared/lxt group
+	add-highlighter shared/lxt/ regex '^\h*=[<>] (\S+)' 1:link
+	add-highlighter shared/lxt/ regex '^\h*##? ([^\n]+)' 1:header
+	add-highlighter shared/lxt/ regex '^\h*> ([^\n]+)' 1:string
+	add-highlighter shared/lxt/ regex '^\h*```(.*?)^\h*```' 1:mono
+	add-highlighter shared/lxt/ regex '^\h*=: \S+ ([^\n]+)' 1:string
+}
+
 provide-module todotxt %{
 	set-face global TodoTxtCompletion red
 	set-face global TodoTxtPriority   yellow
@@ -176,7 +185,7 @@ hook global BufSetOption 'filetype=zig'                                         
 
 hook global BufSetOption 'filetype=(css|dockerfile|html|janet|json|markdown|nix|scheme|typst|xml|yaml)' %{ set-option buffer indentwidth 2 }
 
-hook global BufSetOption 'filetype=(bazel|javascript|latex|lua|nu|python|toml|typescript)' %{ set-option buffer indentwidth 4 }
+hook global BufSetOption 'filetype=(bazel|javascript|latex|lua|lxt|nu|python|toml|typescript)' %{ set-option buffer indentwidth 4 }
 
 hook global BufSetOption 'filetype=(html|janet|latex|lua)' %{
 	map -docstring 'format buffer'     buffer filetype f ': format-buffer<ret>'
@@ -219,6 +228,12 @@ hook global BufSetOption 'filetype=lc2k' %{
 	require-module lc2k
 	add-highlighter buffer/lc2k ref lc2k
 	hook -once -always buffer BufSetOption 'filetype=.*' %{ remove-highlighter buffer/lc2k }
+}
+
+hook global BufSetOption 'filetype=lxt' %{
+	require-module lxt
+	add-highlighter buffer/lxt ref lxt
+	hook -once -always buffer BufSetOption 'filetype=.*' %{ remove-highlighter buffer/lxt }
 }
 
 hook global BufSetOption 'filetype=lua' %{ set-option buffer format_command 'stylua --search-parent-directories -' }
