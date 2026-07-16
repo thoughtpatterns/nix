@@ -56,7 +56,7 @@ define-command -hidden filetype-set %{ try %{ "filetype-empty%opt{filetype}" # H
 			catch %{ filetype-map html        '\.html$'                                     } \
 			catch %{ filetype-map hyprlang    '\.hypr$'                                     } \
 			catch %{ filetype-map ini         '\.ini$'                                      } \
-			catch %{ filetype-map janet       '\.janet$'                                    } \
+			catch %{ filetype-map janet       '\.(janet|jdn)$'                              } \
 			catch %{ filetype-map java        '\.java$'                                     } \
 			catch %{ filetype-map javascript  '\.(ps)?js$'                                  } \
 			catch %{ filetype-map json        '\.json$'                                     } \

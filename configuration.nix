@@ -1,14 +1,17 @@
+# Shared configuration for every host, regardless of OS. Per-OS pieces live in
+# ./modules/darwin.nix, ./modules/linux-cli.nix, and ./modules/linux-gui.nix;
+# per-host pieces live under ./hosts.
 {
   lib,
   pkgs,
+  inputs,
   host,
   user,
+  home,
   ...
 }:
 
 let
-  home = "/Users/${user}";
-
   dashScript =
     {
       name,
@@ -83,111 +86,48 @@ let
         inherit python;
         text = ''
           #!python
-          """
-          repl-buffer-input: Combine independent messages written to a FIFO.
-
-          In the normal UNIX model,
-          a FIFO waits for at least one reader and one writer,
-          and then when the last writer closes their end,
-          all the readers receive EOF and are expected to shut down.
-          That works beautifully for a one-shot pipeline,
-          but for a REPL we want multiple different submissions
-          to all be sent to the same process.
-
-          This tool takes a path to a FIFO,
-          and repeatedly reads from it,
-          copying the data straight to its stdout,
-          which becomes the concatenation of all the separate inputs.
-          If the input FIFO is deleted,
-          this tool (eventually) notices and exits,
-          closing its output
-          and signalling downstream processes to shut down cleanly.
-          """
           import signal
           import sys
 
           TIMEOUT = 5
-
-          # Ask the kernel to interrupt us regularly
           signal.setitimer(signal.ITIMER_REAL, TIMEOUT, TIMEOUT)
-
-          # After the kernel interrupts us, automatically resume what we were doing.
-          # This means interruptions are normally a no-op, BUT if the interrupted
-          # operation was "connect to a FIFO" and the FIFO has been removed, the resumed
-          # attempt will immediately fail.
           signal.siginterrupt(signal.SIGALRM, False)
-
-          # Make sure the kernel does actually send us interrupts
           signal.signal(signal.SIGALRM, lambda _signum, _stack: None)
-
-          # Allocate a fixed-size buffer for all our I/O operations
           BUFFER = bytearray(4096)
-
 
           while True:
               try:
-                  # Open the FIFO and wait for a writer to show up.
                   with open(sys.argv[1], "rb", buffering=0) as handle:
                       while True:
-                          # Block until the writer writes something.
                           count = handle.readinto(BUFFER)
                           if count > 0:
-                              # Got some bytes, pass them along.
                               valid_data = memoryview(BUFFER)[:count]
                               sys.stdout.buffer.write(valid_data)
                               sys.stdout.buffer.flush()
                           else:
-                              # The writer has gone away,
-                              # and now the FIFO will always return EOF immediately,
-                              # so we need to re-open it to block until
-                              # the next writer shows up.
                               break
               except FileNotFoundError:
-                  # Our input FIFO has been removed, we expect no more incoming
-                  # connections, let's gracefully exit.
                   break
-
         '';
       };
   };
-
-  links =
-    let
-      source = "${home}/.config/nix/home";
-      targets =
-        name:
-        {
-          kak-tree-sitter = "Library/Application Support/kak-tree-sitter";
-          ssh = ".ssh";
-        }
-        .${name} or ".config/${name}";
-    in
-    lib.concatStrings (
-      map (
-        name:
-        let
-          target = targets name;
-        in
-        lib.concatStrings (
-          lib.mapAttrsToList (entry: _: ''
-            rm -rf '${home}/${target}/${entry}'
-            sudo -u '${user}' mkdir -p '${home}/${target}'
-            sudo -u '${user}' ln -sfn '${source}/${name}/${entry}' '${home}/${target}/${entry}'
-          '') (builtins.readDir (./home + "/${name}"))
-        )
-      ) (builtins.attrNames (builtins.readDir ./home))
-    );
 in
 {
-  environment = {
-    pathsToLink = [ "/Applications" ];
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = [
+      inputs.rust-overlay.overlays.default
+    ]
+    ++ builtins.map (name: import (./overlays + "/${name}")) (
+      builtins.attrNames (builtins.readDir ./overlays)
+    );
+  };
 
+  environment = {
     # TODO: move compilers and LSPs to project flakes.
     systemPackages =
       with pkgs;
       [
-        aerospace
-        android-tools
         basedpyright
         clang
         clang-tools
@@ -197,22 +137,20 @@ in
         direnv
         ffmpeg
         flirt
-        gh
-        ghostty-bin
+        gambit
         git
         git-lfs
         gnumake
         gnupg
         janet
         janetPackages.spork
-        kak-tree-sitter
         kakoune
         kakoune-lsp
         kakounePlugins.kak-ansi
         kakounePlugins.kakeidoscope
+        kak-tree-sitter
         keychain
         leccaper
-        libiconv
         llvm
         luajit
         mitscheme-svm
@@ -227,17 +165,17 @@ in
         ruff
         rust-analyzer
         rust-bin.stable.latest.default
-        skimpdf
         stylua
-        syncthing
         tectonic
         tex-fmt
         texpand
         tinymist
+        tpp
         typst
         uv
         vidir
         vipe
+        watchexec
         zotero
       ]
       ++ builtins.attrValues scripts;
@@ -250,61 +188,10 @@ in
       JANET_PATH = "${pkgs.janetPackages.spork}";
       JULIA_DEPOT_PATH = "${home}/.julia";
       KAKOUNE_POSIX_SHELL = "${pkgs.dash}/bin/dash";
-      MAKEFLAGS = "-j8";
-      MallocNanoZone = "0";
-      NIX_DIRENV_RC = "${pkgs.nix-direnv}/share/nix-direnv/direnvrc";
-      RUSTFLAGS = "-L${pkgs.libiconv}/lib";
     };
   };
 
-  fonts.packages = with pkgs; [
-    nerd-fonts.iosevka
-  ];
-
-  homebrew = {
-    enable = true;
-    onActivation.cleanup = "zap";
-    casks = [
-      "adobe-creative-cloud"
-      "anki"
-      "antigravity-cli"
-      "balenaetcher"
-      "helium-browser"
-      "microsoft-office"
-      "nordvpn"
-      "spotify"
-      "zoom"
-    ];
-  };
-
-  launchd =
-    let
-      service =
-        {
-          name,
-          command,
-          extra ? { },
-        }:
-        {
-          inherit command;
-          serviceConfig = {
-            KeepAlive = true;
-            RunAtLoad = true;
-            StandardErrorPath = "/tmp/${name}/stderr.txt";
-            StandardOutPath = "/tmp/${name}/stdout.txt";
-          }
-          // extra;
-        };
-    in
-    {
-      user.agents = {
-        aerospace = service {
-          name = "aerospace";
-          command = "${pkgs.aerospace}/Applications/AeroSpace.app/Contents/MacOS/AeroSpace";
-          extra.EnvironmentVariables.PATH = "${pkgs.dash}/bin:/bin:/usr/bin";
-        };
-      };
-    };
+  fonts.packages = with pkgs; [ nerd-fonts.iosevka ];
 
   networking.hostName = host;
 
@@ -312,14 +199,9 @@ in
     package = pkgs.nix;
 
     settings = {
-      trusted-users = [
-        "@admin"
-        user
-      ];
-
+      trusted-users = [ user ];
       substituters = [ "https://cache.nixos.org" ];
       trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
-
       experimental-features = [
         "nix-command"
         "flakes"
@@ -329,31 +211,18 @@ in
     gc = {
       automatic = true;
       options = "--delete-older-than 30d";
-      interval = {
-        Weekday = 0;
-        Hour = 2;
-        Minute = 0;
-      };
     };
   };
 
-  programs.fish.enable = true;
-
-  system = {
-    activationScripts.postActivation.text = links;
-    nixpkgsRelease = "unstable";
-    primaryUser = user;
-    startup.chime = false;
-    stateVersion = 6;
+  programs = {
+    fish.enable = true;
+    nix-index-database.comma.enable = true;
   };
-
-  security.pam.services.sudo_local.touchIdAuth = true;
 
   time.timeZone = "America/Detroit";
 
   users.users.${user} = {
     inherit home;
-    name = user;
     shell = pkgs.fish;
   };
 }

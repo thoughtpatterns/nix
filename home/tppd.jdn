@@ -1,0 +1,11 @@
+{:aerospace {:darwin ".config/aerospace"}
+ :direnv ".config/direnv"
+ :fish ".config/fish"
+ :foot {:linux ".config/foot"}
+ :gh ".config/gh"
+ :ghostty {:darwin ".config/ghostty"}
+ :git ".config/git"
+ :kak ".config/kak"
+ :kak-tree-sitter {:darwin "Library/Application Support/kak-tree-sitter" :linux ".config/kak-tree-sitter"}
+ :niri {:linux ".config/niri"}
+ :ssh ".ssh"}

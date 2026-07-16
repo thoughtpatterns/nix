@@ -1,11 +1,11 @@
 {
-  description = "Apple silicon nix-darwin configuration";
+  description = "NixOS and nix-darwin configurations";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-    nix-darwin = {
-      url = "github:nix-darwin/nix-darwin/master";
+    disko = {
+      url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -14,9 +14,14 @@
       flake = false;
     };
 
-    homebrew-core = {
-      url = "github:homebrew/homebrew-core";
-      flake = false;
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
@@ -37,59 +42,38 @@
       self,
       nixpkgs,
       nix-darwin,
-      homebrew-cask,
-      homebrew-core,
       nix-homebrew,
       nix-index-database,
-      rust-overlay,
+      ...
     }:
     let
-      host = "imac";
-      system = "aarch64-darwin";
       user = "moe";
-
-      overlays = [
-        rust-overlay.overlays.default
-      ]
-      ++ builtins.map (name: import (./overlays + "/${name}")) (
-        builtins.attrNames (builtins.readDir ./overlays)
-      );
-
-      pkgs = import inputs.nixpkgs {
-        inherit overlays system;
-        config.allowUnfree = true;
-      };
     in
     {
-      darwinConfigurations.${host} = nix-darwin.lib.darwinSystem {
-        inherit system;
+      nixosConfigurations.x230 = nixpkgs.lib.nixosSystem {
         specialArgs = {
-          inherit
-            inputs
-            pkgs
-            host
-            user
-            ;
+          inherit inputs user;
+          host = "x230";
+          home = "/home/${user}";
         };
 
         modules = [
-          { nixpkgs = { inherit overlays; }; }
+          nix-index-database.nixosModules.nix-index
+          ./hosts/x230
+        ];
+      };
 
+      darwinConfigurations.imac = nix-darwin.lib.darwinSystem {
+        specialArgs = {
+          inherit inputs user;
+          host = "imac";
+          home = "/Users/${user}";
+        };
+
+        modules = [
           nix-homebrew.darwinModules.nix-homebrew
-          {
-            nix-homebrew = {
-              enable = true;
-              enableRosetta = true;
-              mutableTaps = false;
-              inherit user;
-              taps."homebrew/homebrew-cask" = homebrew-cask;
-            };
-          }
-
           nix-index-database.darwinModules.nix-index
-          { programs.nix-index-database.comma.enable = true; }
-
-          ./configuration.nix
+          ./hosts/imac.nix
         ];
       };
     };

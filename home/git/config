@@ -16,7 +16,7 @@ gpgsign = true
 format = "ssh"
 
 [gpg "ssh"]
-allowedSignersFile = "/Users/moe/.config/git/allowed_signers"
+allowedSignersFile = "@(display home)/.config/git/allowed_signers"
 program = "ssh-keygen"
 
 [credential "https://gist.github.com"]
